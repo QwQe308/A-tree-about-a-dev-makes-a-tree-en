@@ -1,7 +1,10 @@
-# The-Modding-Tree
+I'm from China :D
 
-An incremental game engine based on The Prestige Tree. It still requires programming knowledge, but it's mostly pretty easy things and copy/pasting.
+-----
+Sources of inspiration:
+p : The prestige tree(https://jacorb90.me/Prestige-Tree-Classic/ or the rewritten version : https://jacorb90.me/Prestige-Tree/)
+dev : Version control(https://semenar.itch.io/version-control)
+u : 5 hours until the update(http://idlegame.gitee.io/misc/5hours/)
+-----
 
-[Look here for a tutorial on getting started with modding with TMT](docs/tutorials/getting-started.md)
-
-You can look in the [documentation](docs/!general-info.md) for more information on how it all works, or look at the code in layers.js to see what it all looks like.
+Thanks for playing this game!
