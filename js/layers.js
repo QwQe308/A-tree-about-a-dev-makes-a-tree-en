@@ -12,7 +12,7 @@ var VERSIONchange = {
 }
 var VERSIONname = {
     v0:"Bug Fix",
-    "v0.1":"New Era"
+    "v0.1":"New Start"
 }
 //var VERSIONindex = {
 //    v0:"<h1>v0.1</h1><br />Add the first layer and fixed lots of bugs.<br />",
@@ -56,8 +56,8 @@ addLayer("p", {
     color: "lightblue",
     canReset(){return hasUpgrade("dev",14)&&player.points.gte(layers.p.requires())},
     requires(){return new ExpantaNum(10)}, // Can be a function that takes requirement increases into account
-    trueResource: "重置点(p点)", // Name of prestige currency
-    trueBaseResource: "点数", // Name of resource prestige is based on
+    trueResource: "prestige point(pp)", // Name of prestige currency
+    trueBaseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
@@ -81,7 +81,7 @@ addLayer("p", {
     clickables: {
         11: {
             canClick(){return player.dev.upgrades!=[]},
-            display() {return `重置升级 不返回任何点数。`},
+            display() {return `Reset the upgrades without returning any pp`},
             onClick(){player.p.upgrades=[];player.points = new ExpantaNum(0)}
         }
     },
@@ -91,12 +91,12 @@ addLayer("p", {
         if(inChallenge("dev",21)) eff = eff.pow(1.2)
         return eff
     },
-    effectDescription(){return `加成点数获取x${format(layers.p.effect(),1)}`},
+    effectDescription(){return `Which makes points gain x${format(layers.p.effect(),1)} faster`},
     deactivated(){return !hasUpgrade("dev",14)},
 
     upgrades: {
         11: {
-            description: "p11:p点获取量基于点数的数量级提升。",
+            description: "p11:pp gain is boosted based on your points' OoMs.",
             cost(){
                 var base = new OmegaNum(9).mul(player.devSpeed).add(isable(upgradeEffect("dev",23)))
                 if(inpc11()) base = base.add(player.p.points.div(1.33))
@@ -104,10 +104,10 @@ addLayer("p", {
             },
             unlocked(){return hasUpgrade("dev",15)||hasUpgrade("dev",23)},
             effect(){return player.points.max(1).log10().max(1).pow(upgradeEffect("p",14))},
-            effectDisplay(){return `当前效果：x${format(upgradeEffect("p",11),1)}`}
+            effectDisplay(){return `x${format(upgradeEffect("p",11),1)}`}
         },
         12: {
-            description: "p12:点数加成自身。",
+            description: "p12:points boost points gain.",
             cost(){
                 var base = new OmegaNum(25).mul(player.devSpeed).add(isable(upgradeEffect("dev",23)))
                 if(inpc11()) base = base.add(player.p.points.div(1.33))
@@ -115,10 +115,10 @@ addLayer("p", {
             },
             unlocked(){return hasUpgrade("dev",15)||hasUpgrade("dev",23)},
             effect(){return player.points.add(1).log10().add(1).pow(2).pow(upgradeEffect("p",14))},
-            effectDisplay(){return `当前效果：x${format(upgradeEffect("p",12),1)}`}
+            effectDisplay(){return `x${format(upgradeEffect("p",12),1)}`}
         },
         13: {
-            description: "p13:重置点再次加成点数。",
+            description: "p13:pp boost points gain again.",
             cost(){
                 var base = new OmegaNum(128).mul(player.devSpeed).add(isable(upgradeEffect("dev",23)))
                 if(inpc11()) base = base.add(player.p.points.div(1.33))
@@ -126,10 +126,10 @@ addLayer("p", {
             },
             unlocked(){return hasUpgrade("dev",15)||hasUpgrade("dev",23)},
             effect(){return player.p.points.add(1).pow(2).log10().add(1).pow(upgradeEffect("p",14))},
-            effectDisplay(){return `当前效果：x${format(upgradeEffect("p",13),1)}`}
+            effectDisplay(){return `x${format(upgradeEffect("p",13),1)}`}
         },
         14: {
-            description: "p14:重置点改善前三个升级。",
+            description: "p14:pp improve p11 p12 p13.",
             cost(){
                 var base = new OmegaNum(8192).mul(player.devSpeed).add(isable(upgradeEffect("dev",23)))
                 if(inpc11()) base = base.add(player.p.points.div(1.33))
@@ -140,7 +140,7 @@ addLayer("p", {
             effectDisplay(){return `^${format(player.p.points.add(1).log10().add(1).pow(2).log10().div(5).add(1).pow(upgradeEffect("p",15)),2)}`}
         },
         15: {
-            description: "p15:点数改善p14。",
+            description: "p15:points improve p14.",
             cost(){
                 var base = new OmegaNum(131072).mul(player.devSpeed).add(isable(upgradeEffect("dev",23)))
                 if(inpc11()) base = base.add(player.p.points.div(1.33))
@@ -151,7 +151,7 @@ addLayer("p", {
             effectDisplay(){return `^${format(player.points.add(1).log10().add(1).pow(2).log10().div(10).add(1),2)}`}
         },
         21: {
-            description: "p21:点数加成重置点对点数的加成。",
+            description: "p21:points boost pp's boost to points gain.",
             cost(){
                 var base = new OmegaNum(262144).mul(player.devSpeed).add(isable(upgradeEffect("dev",23)))
                 if(inpc11()) base = base.add(player.p.points.div(1.33))
@@ -162,7 +162,7 @@ addLayer("p", {
             effectDisplay(){return `^${format(ExpantaNum(1.75).sub(ExpantaNum(0.75).div(player.points.add(1).log10().pow(0.5).div(3).add(1))),2)}`}
         },
         22: {
-            description: "p22:重置点加成重置点获取指数。",
+            description: "p22:pp boost pp's gain exp.",
             cost(){
                 var base = new OmegaNum(524288).mul(player.devSpeed).add(isable(upgradeEffect("dev",23)))
                 if(inpc11()) base = base.add(player.p.points.div(1.33))
@@ -173,12 +173,12 @@ addLayer("p", {
             effectDisplay(){return `x${format(ExpantaNum(1.5).sub(ExpantaNum(0.5).div(player.p.points.add(1).log10().pow(0.5).div(5).add(1))),2)}`}
         },
         23: {
-            description: "p23:解锁两个个p挑战。注：进入它们重置p层级，但你目前的p点对点数的加成改为基于最大p点值。挑战中不能重置升级。挑战奖励不会因失去这个升级而消失。",
+            description: "p23:unlock two p challenges.pp's base boost is based on highest pp this dev.Tip: pc will reset p layer,but this upg will be kept.You cannot reset p upg in pc.pc reward won't reset when you lost this upg.",
             cost(){return new OmegaNum(2e6).mul(player.devSpeed).add(isable(upgradeEffect("dev",23)))},
             unlocked(){return hasUpgrade("dev",22)||hasUpgrade("dev",23)},
         },
         24: {
-            description: "p24:pc11的效果的平方影响点数。",
+            description: "p24:pc11's effect ^2 to points gain.",
             cost(){
                 var base = new OmegaNum(1e27).mul(player.devSpeed).add(isable(upgradeEffect("dev",23)))
                 if(inpc11()) base = base.add(player.p.points.div(1.33))
@@ -189,7 +189,7 @@ addLayer("p", {
             effectDisplay(){return `x${format(upgradeEffect("p",24),1)}`}
         },
         25: {
-            description: "p25:获得一个随时间降低的点数产量加成。",
+            description: "p25:get a boost to points gain that will decay over time.Effect reset on prestige.",
             cost(){
                 var base = new OmegaNum(1e36).mul(player.devSpeed).add(isable(upgradeEffect("dev",23)))
                 if(inpc11()) base = base.add(player.p.points.div(1.33))
@@ -203,10 +203,10 @@ addLayer("p", {
     challenges: {
         11: {
             name: "pc11:SUPER PRESTIGE",
-            challengeDescription: "重置p层级时，p层级升级被重置。同时，升级价格加上你的p点数的75%。",
-            goalDescription(){return format(ExpantaNum(1e20))+"点数"},
+            challengeDescription: "When you perform a p reset,p upg is reseted too.Also,p upg's cost is added by your pp*75%。",
+            goalDescription(){return format(ExpantaNum(layers.p.challenges[11].goal))+" points"},
             goal:ExpantaNum(1e20),
-            rewardDisplay(){return `你在此挑战中的对数进度的立方(${format(player.p.cha["11log%"].pow(3).mul(100),2)}%)会给予你以下加成：<br /> x${format(challengeEffect("p", 11),2)}P点获取`},
+            rewardDisplay(){return `Your log10 progress ^3(${format(player.p.cha["11log%"].pow(3).mul(100),2)}%)will give you this boost:<br /> x${format(challengeEffect("p", 11),2)}pp gain`},
             rewardEffect(){return OmegaNum(100).pow(player.p.cha["11log%"].pow(3))},
             unlocked(){return hasUpgrade("p",23)},
             onEnter(){player.p.upgrades=[23];player.p.points=new ExpantaNum(0)},
@@ -214,10 +214,10 @@ addLayer("p", {
         },
         12: {
             name: "pc12:META P-POINT",
-            challengeDescription: "超过你所拥有的p点的点数产量被软上限。(^0.5)p点数获取指数降低。(x0.8)",
-            goalDescription(){return format(ExpantaNum(1e20))+"点数"},
+            challengeDescription: "points gain greater than pp is softcapped.(^0.5)pp's gain exp is nerfed.(x0.8)",
+            goalDescription(){return format(ExpantaNum(layers.p.challenges[12].goal))+" points"},
             goal:ExpantaNum(1e20),
-            rewardDisplay(){return `你在此挑战中的对数进度的立方(${format(player.p.cha["12log%"].pow(3).mul(100),2)}%)会给予你以下加成：<br /> x${format(challengeEffect("p", 12),2)}点数`},
+            rewardDisplay(){return `Your log10 progress ^3(${format(player.p.cha["12log%"].pow(3).mul(100),2)}%)will give you this boost:<br /> x${format(challengeEffect("p", 12),2)}points`},
             rewardEffect(){return OmegaNum(1000).pow(player.p.cha["12log%"].pow(3))},
             unlocked(){return hasUpgrade("p",23)},
             onEnter(){player.p.upgrades=[23];player.p.points=new ExpantaNum(0)},
@@ -253,8 +253,8 @@ addLayer("dev", {
     requires(){
         return getdevreq()
     }, // Can be a function that takes requirement increases into account
-    trueResource: "开发点", // Name of prestige currency
-    trueBaseResource: "点数", // Name of resource prestige is based on
+    trueResource: "dev points", // Name of prestige currency
+    trueBaseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0, // Prestige currency exponent
@@ -273,61 +273,61 @@ addLayer("dev", {
     clickables: {
         11: {
             canClick(){return player.dev.upgrades!=[]},
-            display() {return `重置升级 返回你使用的 ${format(player.dev.total.sub(player.dev.points))} ${tmp[layer].resource}`},
+            display() {return `reset dev upgs\nreturns ${format(player.dev.total.sub(player.dev.points))} ${tmp[layer].resource}`},
             onClick(){player.dev.upgrades=[];player.dev.points=player.dev.total;for (let x = 9; x >= 0; x--) rowReset(x, "dev");player.points = new ExpantaNum(0);player.dev.activeChallenge=null}
         }
     },
     upgrades: {
         11: {
-            description: "dev11:点数显示有点问题。修复一下。注：此类升级可能需要重新进入对应节点才能生效。",
+            description: "dev11:The points is not shown.Fix it.\nTip:dev11 and dev12 sometimes need you reenter the node.",
             cost(){return hasChallenge("dev", 11) ? new OmegaNum(0) : new OmegaNum(1)},
             unlocked(){return player.dev.total.gte(1)},
         },
         12: {
-            description: "dev12:点数名称有点问题。修复一下。并且添加重置按钮的文字。",
+            description: "dev12:The points' name and the text on the prestige button is not shown.Fix these bugs.",
             cost(){return hasChallenge("dev", 12) ? new OmegaNum(0) : new OmegaNum(1)},
             unlocked(){return player.dev.total.gte(2)}
         },
         13: {
-            description: "dev13:gameloop好像有点问题。让它循环起来。",
+            description: "dev13:Gameloop maybe broken.Let it loop.(makes your points gain automatly)",
             cost(){return new OmegaNum(2)},
             unlocked(){return player.dev.total.gte(3)},
         },
         14: {
-            description: "dev14:制作节点“P”。",
+            description: "dev14:Develop node 'P'.",
             cost(){return new OmegaNum(2)},
             unlocked(){return player.dev.total.gte(4)},
         },
         15: {
-            description: "dev15:制作节点“P”的前5个升级。同时，解锁开发挑战11。（要不是少了devU11要很迷才不会有这个",
+            description: "dev15:Develop the first 5 p upgs.Also,unlock dev challenge 11.",
             cost(){return new OmegaNum(1)},
             unlocked(){return player.dev.total.gte(5)},
         },
         21: {
-            description: "dev21:开启开发者加速以便调试游戏。注：升级价格同样增加。该升级不能中途购买。",
+            description: "dev21:Use the devSpeed function to test the game.Tip：upg's cost is higher too.This upg cannot be bought after you start this dev.",
             cost(){return new OmegaNum(2).add(isable(player.p.total.eq(0)))},
             unlocked(){return player.dev.total.gte(6)},
             effect(){return ExpantaNum(10).pow(player.dev.total.sub(4).sqrt().sub(1)).toNumber()}
         },
         22: {
-            description: "dev22:制作节点“P”的第6至8升级。",
+            description: "dev22:Develop p21 p22 p23.",
             cost(){return new OmegaNum(5)},
             unlocked(){return player.dev.total.gte(7)},
             effect(){return ExpantaNum(10).pow(player.dev.total.sub(4).sqrt().sub(1)).toNumber()}
         },
         23: {
-            description: "dev23:制作节点“P”的前8个升级，但你只能在所有p升级中选择5个，以加强趣味性。注：和devU15和U22冲突。",
+            description: "dev23:Develop the first 8 p upgs,but you can only buy 5 p upgs,to make this game more interesting。Tip:dev15 and dev22 have no effect if you buy this upg.",
             cost(){return new OmegaNum(3)},
             unlocked(){return player.dev.total.gte(7)},
             effect(){return hasUpgrade("dev",23) ? 5-player.p.upgrades.length : true}
         },
         24: {
-            description: "dev24:开启开发挑战12.",
+            description: "dev24:unlock dev c12.(challenge 12)",
             cost(){return new OmegaNum(3)},
             unlocked(){return player.dev.total.gte(7)},
         },
         25: {
-            description: "dev25:开启开发挑战21...?",
+            description: "dev25:unlock dev c13...?",
             cost(){return new OmegaNum(3)},
             unlocked(){return player.dev.total.gte(8)},
         },
@@ -336,27 +336,27 @@ addLayer("dev", {
     challenges: {
         11: {
             name: "devc11:AntiLooperrrr",
-            challengeDescription: "因为挑战出了bug，dev13被禁用了。刷新后的第一帧时间计数x100。",
+            challengeDescription: "Because you cannot fix the gameloop,dev13 has no effect.The refresh effect is x100 stronger.",
             canComplete(){return player.points.gte(1e10)},
-            goalDescription(){return format(ExpantaNum(1e10))+"点数"},
-            rewardDisplay(){return `你永远保留dev11的效果，同时“刷新后的第一帧时间计数x100。”被保留。`},
+            goalDescription(){return format(ExpantaNum(1e10))+" points"},
+            rewardDisplay(){return `Dev11 always works,Also'The refresh effect is x100 stronger.'is kept.`},
             unlocked(){return hasUpgrade("dev",15)}
         },
         12: {
             name: "devc12:Looperrrr",
-            challengeDescription: "因为刷新功能时出了bug，刷新不能产生任何效果。",
+            challengeDescription: "because of some bugs,refresh does nothing.",
             canComplete(){return player.points.gte(1e10)},
-            goalDescription(){return format(ExpantaNum(1e10))+"点数"},
-            rewardDisplay(){return `loop的速度x20。同时，dev12效果被保留。`},
+            goalDescription(){return format(ExpantaNum(1e10))+" points"},
+            rewardDisplay(){return `loop is faster(x20).Also,dev12 always works.`},
             unlocked(){return hasUpgrade("dev",24)}
         },
         21: {
-            name: "devc21:buggy",
-            challengeDescription: "游戏全是bug。现在你将获得以下效果：<br />1.刷新效果乘以一个不稳定的小于等于1的数<br />2.所有p挑战效果起效,除了pc12的效果2.<br />3.点数越多loop效率越低<br />4.开局解锁p挑战(不会产生重复的debuff)，挑战目标降至1e12，但重置p升级后会失效.<br />5.p点指数x1.1<br />6.p点效果^1.2",
+            name: "devc21:FULL OF BUGS",
+            challengeDescription: "There are so many bugs.Now you get these effects:<br />1.refresh's effect is unstable.(x0~x1)<br />2.All pc works,except pc12's second effect.<br />3.points slow down the loop.<br />4.Unlock pc when you start this dev(pc's debuff won't appear twice),pc's goal is 1e12,but you cannot reset p upgs.<br />5.pp's gain exp x1.1.<br />6.pp's effect^1.2.",
             onEnter(){player.p.upgrades=[23]},
             canComplete(){return player.points.gte(1e13)},
-            goalDescription(){return format(ExpantaNum(1e13))+"点数"},
-            rewardDisplay(){return `开启最后两个p升级。`},
+            goalDescription(){return format(ExpantaNum(1e13))+" points"},
+            rewardDisplay(){return `unlocks the last two p upgs.`},
             unlocked(){return hasUpgrade("dev",25)}
         },
     },
@@ -369,7 +369,7 @@ addLayer("dev", {
             shownum = false
         }
         if(hasUpgrade("dev",12)||hasChallenge("dev",12)){
-            modInfo.pointsName="点数"
+            modInfo.pointsName="points"
             showprestigetext = true
             for(i in layerslist) {
             tmp[layerslist[i]].resource=tmp[layerslist[i]].trueResource
@@ -431,8 +431,8 @@ addLayer("v", {
         if(VERSIONreq["v"+version]){return ExpantaNum(VERSIONreq["v"+version])}
         else{return ExpantaNum("10{10}10")}
     }, // Can be a function that takes requirement increases into account
-    trueResource: "版本更新点", // Name of prestige currency
-    trueBaseResource: "点数", // Name of resource prestige is based on
+    trueResource: "version points", // Name of prestige currency
+    trueBaseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0, // Prestige currency exponent
@@ -451,7 +451,7 @@ addLayer("v", {
     clickables: {
         11: {
             canClick(){return true},
-            display() {return `重置升级 重置你的增益点和减益点`},
+            display() {return `reset v upgs\nresets your buffp and nerfp`},
             onClick(){
                 player.v.upgrades=[];player.v.points=player.v.total;for (let x = 9; x >= 0; x--) rowReset(x, "v");player.points = new ExpantaNum(0);player.v.activeChallenge=null
                 player.dev.upgrades=[];player.dev.points=player.dev.total;player.dev.activeChallenge=null
@@ -463,27 +463,27 @@ addLayer("v", {
     upgrades: {
         11: {
             title: "debuff11",
-            description: "你永远处在p挑战1中.",
+            description: "You're always in pc11.",
             cost(){return new OmegaNum(1)},
             unlocked(){return player.v.total.gte(1)},
             pay(){player.v.nerfp=player.v.nerfp.add(1)},
-            currencyDisplayName:"减益点"
+            currencyDisplayName:"nerf points"
         },
         12: {
             title: "debuff12",
-            description: "游戏速度x0.1.",
+            description: "Game speed x0.1.",
             cost(){return new OmegaNum(1)},
             unlocked(){return player.v.total.gte(1)},
             pay(){player.v.nerfp=player.v.nerfp.add(1)},
-            currencyDisplayName:"减益点"
+            currencyDisplayName:"nerf points"
         },
     },
     buyables:{
         11: {
             cost(x) { return x.add(1) },
             display() {
-                var str = "buff11:更新<br />"
-                str += `<txt style="color:${getBuyableAmount(this.layer, this.id).gte(1) ? "black" : "grey"}">LV1:更新时间降低开发点需求.(/${HARDformat(this.effect1(),1)})同时增幅点数获取.(x${HARDformat(this.effect1().sqrt(),1)})</txt><br />价格:${this.cost(getBuyableAmount(this.layer, this.id))}增益点`
+                var str = "buff11:Update<br />"
+                str += `<txt style="color:${getBuyableAmount(this.layer, this.id).gte(1) ? "black" : "grey"}">LV1:Update time makes dev req lower.(/${HARDformat(this.effect1(),1)})Also,it boosts points gain.(x${HARDformat(this.effect1().sqrt(),1)})</txt><br />cost: ${this.cost(getBuyableAmount(this.layer, this.id))} buff points`
                  return str 
             },
             canAfford() { return player[this.layer].buffp.add(this.cost()).lte(player.v.points) },
@@ -509,46 +509,45 @@ addLayer("v", {
     },
     */
     tabFormat: {
-        更新内容: {
+        Version: {
             buttonStyle() {return  {'color': 'lime'}},
             content:
                 ["main-display",
                 ["display-text", function() {
-                    var basestr = "你的增益点为 "+HARDformat(player.v.buffp)+" / "+HARDformat(player.v.points)
+                    var basestr = "Your buff points is "+HARDformat(player.v.buffp)+" / "+HARDformat(player.v.points)
                     if(player.v.buffp.gt(player.v.points)) basestr+=` <warning style="color:red";>(WARNING:增益点大于上限!)</warning>`
                     return basestr
                 }],
                 ["display-text", function() {
-                    var basestr = "你的减益点为 "+HARDformat(player.v.nerfp)+" / "+HARDformat(player.v.points)
-                    if(player.v.nerfp.lt(player.v.points)) basestr+=` <warning style="color:red">(WARNING:减益点未达到目标!你的游戏暂停!)</warning>`
+                    var basestr = "Your nerf points is "+HARDformat(player.v.nerfp)+" / "+HARDformat(player.v.points)
+                    if(player.v.nerfp.lt(player.v.points)) basestr+=` <warning style="color:red">(WARNING:Nerf points didn't reached the req!Your game is stopped!)</warning>`
                     return basestr
                 }],
                 "prestige-button", "resource-display",
                 "clickables",
                 ["blank", "5px"], // Height
                 "h-line",
-                ["display-text", function() {return "增益升级"}],
+                ["display-text", function() {return "buff upgs"}],
                 ["blank", "5px"],
                 "buyables",
                 ["blank", "5px"], // Height
                 "h-line",
-                ["display-text", function() {return "减益升级"}],
+                ["display-text", function() {return "nerf upgs"}],
                 "upgrades",
                 ],
 
         },
-        更新内容规则: {
+        Rules: {
             buttonStyle() {return {'border-color': 'lime'}},
             content:
                 ["main-display",
-                ["display-text", function() {return "欢迎来到版本节点!(?"}],
-                ["display-text", function() {return "版本点会同时提高增益点上限和减益点的要求"}],
-                ["display-text", function() {return "增益点必须不超过上限"}],
-                ["display-text", function() {return "减益点必须不小于要求"}],
-                ["display-text", function() {return "如果不满足以上两点，游戏会静止"}],
-                ["display-text", function() {return "购买增益升级会提高增益点，减益升级提高减益点"}],
-                ["display-text", function() {return "重置v升级并不会进行一次v重置，而是重置dev升级。"}],
-                ["display-text", function() {return "就这样吧("}],
+                ["display-text", function() {return "Welcomes to the V node!"}],
+                ["display-text", function() {return "vp(version points) will makes the buffp's limit and nerfp's req higher."}],
+                ["display-text", function() {return "Buffp shouldn't be bigger than your buffp limit"}],
+                ["display-text", function() {return "Nerfp shouldn't be smaller than your nerfp req"}],
+                ["display-text", function() {return "If you cannot reach the nerfp req,the game will stop."}],
+                ["display-text", function() {return "reset v upgs won't perform a v reset,but it will perform a dev reset and reset dev upgs."}],
+                ["display-text", function() {return "That's all.:D"}],
                 ["blank", "15px"],
                 ],
         },
@@ -579,11 +578,11 @@ function calcpattime(){
     return player.u.patbuff.div(aday)
 }
 var updtxt = {
-    none:"无",
-    upd:"更新游戏",
-    stu:"学习技术",
-    sim:"简化代码",
-    pat:"锻炼耐心",
+    none:"none",
+    upd:"update",
+    stu:"study",
+    sim:"refactor",
+    pat:"patience",
 }
 function progressU(rt){
     var speed = player.u.stubuff
@@ -665,7 +664,7 @@ addLayer("u", {
         mpatbuff: new ExpantaNum(1),
     }},
     color: "lime",
-    trueResource: "小时更新时间", // Name of prestige currency
+    trueResource: "hours of update time", // Name of prestige currency
     type: "none", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new ExpantaNum(1)
@@ -680,29 +679,29 @@ addLayer("u", {
         //part1
         11: {
             canClick(){return true},
-            display() {return `更新游戏<br />你已经更新了${Utimeformat(player.u.updtime)}的进度.<br /><br />你正在进行:${updtxt[player.u.doing]}`},
+            display() {return `Update the game<br />You've updated ${Utimeformat(player.u.updtime)}.<br /><br />Now you are doing:${updtxt[player.u.doing]}`},
             onClick(){player.u.doing = "upd"}
         },
         12: {
             canClick(){return true},
-            display() {return `学习技术<br />你已经学习了${Utimeformat(player.u.stutime)}的内容.<br />这意味着你的速度x${HARDformat(player.u.stubuff,2)}(减益前).<br />由于耐心,这个数值^${HARDformat(getpatbuff(),2)}变为x${HARDformat(player.u.stubuff.pow(getpatbuff()),2)}`},
+            display() {return `Study something useful<br />You've studied ${Utimeformat(player.u.stutime)}.<br />This means your U node speed x${HARDformat(player.u.stubuff,2)}(before nerf).<br />Because of your patience,this effect^${HARDformat(getpatbuff(),2)} = x${HARDformat(player.u.stubuff.pow(getpatbuff()),2)}`},
             onClick(){player.u.doing = "stu"},
             effect(){}
         },
         13: {
             canClick(){return true},
-            display() {return `简化代码<br />你已经简化了${Utimeformat(player.u.simtime)}的代码.<br />这意味着你的时间减速效果变成${HARDformat(player.u.simbuff,2)}次根.`},
+            display() {return `Refactor the code<br />You've refactored ${Utimeformat(player.u.simtime)}.<br />This means your U node nerf is to the ${HARDformat(player.u.simbuff,2)}th root.`},
             onClick(){player.u.doing = "sim"}
         },
         14: {
             canClick(){return true},
-            display() {return `锻炼耐心<br />你已经进行了${Utimeformat(player.u.pattime)}的锻炼.<br />这意味着你的耐心增长速度x${HARDformat(player.u.patbuff,2)}(${HARDformat(calcpattime(),5)}耐心/秒).<br />当前耐心:${HARDformat(player.u.patpoint,3)}`},
+            display() {return `Learn the patience<br />You've learned ${Utimeformat(player.u.pattime)}.<br />This means your patience points' gain speed x${HARDformat(player.u.patbuff,2)}(${HARDformat(calcpattime(),5)}patp/s).<br />Current patience points(patp):${HARDformat(player.u.patpoint,3)}`},
             onClick(){player.u.doing = "pat"}
         },
         //part2: reset layer 1
         21: {
             canClick(){return player.u.updtime.gt(600)},
-            display() {return `内部测试<br />你已经测试了${Utimeformat(player.u.mupdtime)}的更新内容.<br />这意味着你的行动速度变为${HARDformat(player.u.mupdbuff,2)}次方,在减益后.<br />重置并获得${Utimeformat(metatime(player.u.updtime))}.`},
+            display() {return `Test your game<br />You've tested ${Utimeformat(player.u.mupdtime)}.<br />This means your speed is powered by ${HARDformat(player.u.mupdbuff,2)},after the nerf.<br />Reset to get ${Utimeformat(metatime(player.u.updtime))}.`},
             onClick(){
                 player.u.mupdtime = metatime(player.u.updtime).add(player.u.mupdtime);
                 resetU(1,"mupd")
@@ -710,7 +709,7 @@ addLayer("u", {
         },
         22: {
             canClick(){return player.u.updtime.gt(1800)},
-            display() {return `刻苦钻研<br />你已经研究了${Utimeformat(player.u.mstutime)}的学习内容.<br />这意味着你在该数值前的学习使速度额外x${HARDformat(player.u.mstubuff,2)}.(耐心加成前!)<br />重置并获得${Utimeformat(metatime(player.u.stutime))}.`},
+            display() {return `Do some research<br />You've researched ${Utimeformat(player.u.mstutime)}.<br />This means your study time before your research time boosts speed more.${HARDformat(player.u.mstubuff,2)}.(before the patp boost!)<br />Reset to get ${Utimeformat(metatime(player.u.stutime))}.`},
             onClick(){
                 player.u.mstutime = metatime(player.u.stutime).add(player.u.mstutime);
                 resetU(1,"mstu")
@@ -718,7 +717,7 @@ addLayer("u", {
         },
         23: {
             canClick(){return player.u.updtime.gt(3600)},
-            display() {return `添加注释<br />你已经添加了${Utimeformat(player.u.msimtime)}的注释代码.<br />这意味着你的开发时间会加成简化效果(x${HARDformat(player.u.msimbuff,2)}).<br />重置并获得${Utimeformat(metatime(player.u.simtime))}.`},
+            display() {return `Add some notes<br />You've added ${Utimeformat(player.u.msimtime)}.<br />This means your upd time boosts refactor effect(x${HARDformat(player.u.msimbuff,2)}).<br />Reset to get ${Utimeformat(metatime(player.u.simtime))}.`},
             onClick(){
                 player.u.msimtime = metatime(player.u.simtime).add(player.u.msimtime);
                 resetU(1,"msim")
@@ -726,7 +725,7 @@ addLayer("u", {
         },
         24: {
             canClick(){return player.u.tpatpoint.gt(1)},
-            display() {return `元化耐心<br />你已经元化了${HARDformat(player.u.mpatpoint,2)}的耐心.<br />这意味着你的耐心上限x${HARDformat(player.u.mpatbuff,2)}.<br />重置并获得${HARDformat(metatime(player.u.tpatpoint))}.(基于无上限状态下耐心数:${HARDformat(player.u.tpatpoint,2)})`},
+            display() {return `Improve your patience<br />You have ${HARDformat(player.u.mpatpoint,2)} meta patp.<br />This means your patp cap x${HARDformat(player.u.mpatbuff,2)}.<br />Reset to get ${HARDformat(metatime(player.u.tpatpoint))}.(Based on your patp without cap:${HARDformat(player.u.tpatpoint,2)})`},
             onClick(){
                 player.u.mpatpoint = metatime(player.u.tpatpoint).add(player.u.mpatpoint);
                 resetU(1,"mpat")
@@ -734,14 +733,16 @@ addLayer("u", {
         },
 
     },
+    /*
     upgrades: {
         11: {
             description: "next update is in 5 hours。",
-            cost(){return new OmegaNum("6.9e420")},
+            cost(){return new OmegaNum(5)},
             unlocked(){return true},
-            currencyDisplayName:"小时更新时间"
+            currencyDisplayName:"hours of update time"
         },
     },
+    */
     /*
     challenges: {
         11: {

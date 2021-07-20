@@ -39,7 +39,7 @@
 		<canvas id="treeCanvas" class="canvas" v-if="!(gameEnded && !player.keepGoing)"></canvas>
 
 		<div v-if="false" id="loadingSection" class="fullWidth">
-			<h1>Loading... (If this takes too long it means there was a serious error!)如果你点了硬重置,请点play again.←</h1>
+			<h1>Loading... (If this takes too long it means there was a serious error!)If you hardReseted,click the "play again".←</h1>
 		</div>
 		<div class="vl" v-if="player.navTab !== 'none' && tmp.other.splitScreen && player.tab!='none' && !(gameEnded && !player.keepGoing)"></div>
 		<div v-if="(gameEnded && !player.keepGoing)" class="fullWidth">

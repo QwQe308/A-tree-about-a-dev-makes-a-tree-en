@@ -15,19 +15,19 @@ let VERSION = {
 	name: "",
 }
 
-let changelog = `<h1>更新内容(游戏真实版本):</h1><br>
+let changelog = `<h1>Changelog(real version):</h1><br>
 	<h2>v0.23</h2><br>
-		- 平衡了v0.1的流程。<br><br>
+		- Balanced v0.1.<br><br>
 	<h2>v0.22</h2><br>
-		- 修复若干bug，制作u节点的第一层重置。<br><br>
+		- Fixed some bugs,made u node's layer 1 reset.<br><br>
 	<h2>v0.21</h2><br>
-		- 修复若干bug，完善左上提示。<br><br>
+		- Fixed some bugs and improved the tips.<br><br>
 	<h2>v0.2</h2><br>
-		- 制作v节点和u节点框架，完善左上提示。<br><br>
+		- Made the base things in v and u node.Improved the tips.<br><br>
 	<h2>v0.11</h2><br>
-		- 制作dev后5个升级，完善左上提示。<br><br>
+		- Made dev upg 21~25.<br><br>
 	<h2>v0.1</h2><br>
-		- 添加dev节点，制作dev前五个升级。
+		- Made dev upg 11~15.
 	`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
@@ -73,11 +73,12 @@ function addedPlayerData() { return {
 
 // Display extra things at the top of the page
 var displayThings = [
-	function(){return "试着刷新游戏!所有undefined和游戏静止不是bug.Tip:自动存档间隔是0.5s,请等待存档后再刷新."},
-	function(){return "当前endgame:v0.1中拥有12开发点且拥有e56点数"},
-	function(){return `下个开发点在：${HARDformat(getdevreq())}点数`},
-	function(){return `每次刷新能前进0.1s!${player.v.nerfp.lt(player.v.points) ? "<warning style='color:red'>(WARNING:减益点未达到目标!你的游戏暂停!)</warning>" : ""}`},
-	function(){return "作者：QwQ（QwQe308，qq3174905334）"},
+	function(){return "Try to refresh the game!All of the undefineds and the game freezed are not bugs."},
+	function(){return "Tip:Autosave's delay is 0.5s,please refresh after the game saved."},
+	function(){return "Current endgame:12 dev points and e56 points in v0.1."},
+	function(){return `Next dev point: ${HARDformat(getdevreq())} points`},
+	function(){return `0.1 second/refresh!${player.v.nerfp.lt(player.v.points) ? "<warning style='color:red'>(WARNING:Nerf points didn't reached the req!Your game is stopped!)</warning>" : ""}`},
+	function(){return "Author：QwQ（QwQe308，qq3174905334）"},
 ]
 
 // Determines when the game "ends"
