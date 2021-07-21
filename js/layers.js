@@ -709,7 +709,7 @@ addLayer("u", {
         },
         22: {
             canClick(){return player.u.updtime.gt(1800)},
-            display() {return `Do some research<br />You've researched ${Utimeformat(player.u.mstutime)}.<br />This means your study time before your research time boosts speed more.${HARDformat(player.u.mstubuff,2)}.(before the patp boost!)<br />Reset to get ${Utimeformat(metatime(player.u.stutime))}.`},
+            display() {return `Do some research<br />You've researched ${Utimeformat(player.u.mstutime)}.<br />This means your study time before your research time boosts speed more. x${HARDformat(player.u.mstubuff,2)} .(before the patp boost!)<br />Reset to get ${Utimeformat(metatime(player.u.stutime))}.`},
             onClick(){
                 player.u.mstutime = metatime(player.u.stutime).add(player.u.mstutime);
                 resetU(1,"mstu")
